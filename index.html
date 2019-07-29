@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>color picker</title>
+    <style>
+        .wrapper {
+            width: 80%;
+            margin: 0 auto;
+            padding-bottom: 50px;
+            background: rgb(127, 127, 127);
+        }
+
+        .sliderGroup {
+            width: 50%;
+            margin: 0 auto 20px auto;
+            text-align: center;
+        }
+
+        .sliderGroup>span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            border-radius: 5px;
+        }
+
+        .colorR,
+        .rValue {
+            background-color: red;
+        }
+
+        .colorB,
+        .bValue {
+            background-color: blue;
+        }
+
+        .colorG,
+        .gValue {
+            background-color: green;
+        }
+
+        input[type="text"] {
+            width: 60px;
+            text-align: center;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 0;
+        }
+
+        .hex {
+            width: 50%;
+            height: 100px;
+            background: rgba(127, 127, 127, 0.2);
+            margin: 0 auto;
+            font-size: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sliderGroup">
+            <span class="colorR">R</span>
+            <input id="red" class="red" type="range" min="0" max="255">
+            <input type="text" value="127" class="rValue" readonly><br>
+            <span class="colorG">G</span>
+            <input id="green" class="green" type="range" min="0" max="255">
+            <input type="text" class="gValue" value="127" readonly><br>
+            <span class="colorB"> B</span>
+            <input id="blue" class="blue" type="range" min="0" max="255">
+            <input type="text" value="127" class="bValue" readonly><br>
+        </div>
+        <div class="hex">#808080</div>
+    </div>
+
+    
+    <script>
+        //----------var area-----------
+        let sliderGroup = document.querySelector(".sliderGroup")
+        let wrapper = document.querySelector(".wrapper")
+
+
+        ///------function area----------
+
+        //RGB to Hex
+        function rgbToHex(color) {
+            var hex = Number(color).toString(16);
+            if (hex.length < 2) {
+                hex = "0" + hex;
+            }
+            return hex;
+        };
+        // output hex
+        function hexColor(r, g, b) {
+            var red = rgbToHex(r);
+            var green = rgbToHex(g);
+            var blue = rgbToHex(b);
+            return "#" + red + green + blue;
+        };
+
+        //--------eventlistener area---------------
+
+
+        //color bar change
+        sliderGroup.addEventListener("change", function (e) {
+            let red = document.querySelector(".red").value
+            let green = document.querySelector(".green").value
+            let blue = document.querySelector(".blue").value
+            let wrapperColor = hexColor(red, green, blue)
+            let hex = document.querySelector(".hex")
+            //wrapper color change
+            wrapper.style.background = wrapperColor
+            //input hex color code to .hex
+            hex.textContent = wrapperColor
+            //input RGB color code
+            e.target.nextElementSibling.value = e.target.value
+
+        })
+
+    </script>
+</body>
+
+</html>
